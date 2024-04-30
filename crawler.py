@@ -67,16 +67,20 @@ class Crawler:
 
     # 한번 로그인 하면 해당 세션 정보를 저장하여 사용하기
     def __login(self):
+        "로그인"
         if not conv.isFileAvailable(self.__session_data_path):
             url = "https://www.acmicpc.net/login"
+            id_box_query = f'//input[@name="login_user_id"]'
+            auto_check_query= f'//input[@name="auto_login"]'
             self.__driver.get(url=url)
-            # 로그인
-            id_box = "login_user_id"
-            auto_check = "auto_login"
+            #자동 로그인 체크 박스 요소가 등장할 때까지 기다리기 
+            WebDriverWait(self.__driver, 5).until(EC.presence_of_element_located((By.XPATH, auto_check_query)))
+            
+        
             self.__driver.find_element(
-                by=By.XPATH, value=f'//input[@name="{auto_check}"]').click()  # 로그인 상태 유지
+                by=By.XPATH, value=auto_check_query).click()  # 로그인 상태 유지
             self.__driver.find_element(
-                by=By.XPATH, value=f'//input[@name="{id_box}"]').send_keys(self.user_id)
+                by=By.XPATH, value=id_box_query).send_keys(self.user_id)
 
             while (True):
                 if (self.__driver.current_url == "https://www.acmicpc.net/"):
@@ -124,8 +128,7 @@ class Crawler:
                 if problem_num not in res:
                     file_name = f"{problem_num}.png"
                     if conv.element2png(element=val, file_path=self.custom_path_config.tmp_image_forder_path, file_name=f"{problem_num}.png"):
-                        res[problem_num] = self.custom_path_config.tmp_image_forder_path + \
-                            f"/{file_name}"
+                        res[problem_num] = self.custom_path_config.tmp_image_forder_path + f"/{file_name}"
                 if idx == len(results)-1:
                     time_stamp = val.find_element(
                         By.XPATH, './td[./a[@data-timestamp]]/a').get_attribute("data-timestamp")
