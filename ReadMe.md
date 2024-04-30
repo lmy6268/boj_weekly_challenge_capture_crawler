@@ -21,6 +21,7 @@ Python 3.9 / Macbook Pro M2 Pro (MacOS 14.4.1) / Chrome 124.0.6367.62
 5. 사용자의 이름과 백준 아이디를 입력하신 후, 약 5~10초 정도 기다려주세요. 
 <br>
 
-1. 이후, 결과 이미지가 화면에 나타나고, 이미지가 저장된 경로가 터미널에 나타납니다. 
+6. 이후, 결과 이미지가 화면에 나타나고, 이미지가 저장된 경로가 터미널에 나타납니다. 
 
 ## 예시 이미지 
+![이미지](https://github.com/lmy6268/boj_weekly_challenge_capture_crawler/assets/70847610/f715bfc3-71e1-4300-9b1a-1983daf77fe5)
