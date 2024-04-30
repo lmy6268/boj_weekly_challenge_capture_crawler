@@ -1,7 +1,6 @@
 import pickle
 import json
 import os
-import subprocess
 import shutil
 from selenium.webdriver.remote.webelement import WebElement
 

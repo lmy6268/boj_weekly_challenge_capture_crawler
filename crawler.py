@@ -47,7 +47,6 @@ class Crawler:
     def __init__(self, user_boj_id, user_name):
         '''크롤러 생성자'''
         self.__session_data_path = "./data/boj_login_cookies.pkl"
-        self.__base_url = "https://www.acmicpc.net/"  # 기본 시작 url 필요한 경우
         self.__driver = self.__reset_driver()
         self.user_id = user_boj_id
         self.user_name = user_name
@@ -71,7 +70,7 @@ class Crawler:
         if not conv.isFileAvailable(self.__session_data_path):
             url = "https://www.acmicpc.net/login"
             id_box_query = f'//input[@name="login_user_id"]'
-            auto_check_query= f'//input[@name="auto_login"]'
+            auto_check_query= f'//input[@name="auto_login" and @type = "checkbox"]'
             self.__driver.get(url=url)
             #자동 로그인 체크 박스 요소가 등장할 때까지 기다리기 
             WebDriverWait(self.__driver, 5).until(EC.presence_of_element_located((By.XPATH, auto_check_query)))
@@ -97,28 +96,30 @@ class Crawler:
     def __get_data_for_result(self) -> dict:
         '''연습문제 중 업솔빙에 대한 데이터를 가져오는 메소드'''
         url = "https://www.acmicpc.net/status"
-        submit_btn = "btn btn-primary btn-sm margin-left-3 form-control"
-        table_name = "table table-striped table-bordered"
-        find_keyword = "맞았습니다!!"
 
         self.__driver.get(url)
+        find_user_id_query = '//input[@name="user_id"]'
+        find_correct_query = f'//select[@name="result_id"]/option[text()="맞았습니다!!"]'
+        find_submit_btn_query = f'//button[@class="btn btn-primary btn-sm margin-left-3 form-control"]'
+        WebDriverWait(self.__driver, 5).until(EC.presence_of_element_located((By.XPATH,find_user_id_query)))
         self.__driver.find_element(
-            by=By.XPATH, value='//input[@name="user_id"]').send_keys(self.user_id)  # 사용자 아이디 검색
+            by=By.XPATH, value=find_user_id_query).send_keys(self.user_id)  # 사용자 아이디 검색
         self.__driver.find_element(
-            by=By.XPATH, value=f'//select[@name="result_id"]/option[text()="{find_keyword}"]').click()  # 맞은 값만 찾기
+            by=By.XPATH, value=find_correct_query).click()  # 맞은 값만 찾기
         self.__driver.find_element(
-            by=By.XPATH, value=f'//button[@class="{submit_btn}"]').click()  # 검색하기
-        # 주어진 조건에 맞는 데이터만 가져오기
-        # 1. 특정 기간 내에 푼 문제인지
-        # 2. 업솔빙인지 아니면 클래스 문제를 풀은 것인지
-        tr_query = f'//table[@class="table table-striped table-bordered"]/tbody/tr[./td[9]/a[number(@data-timestamp)>={self.test_start} and number(@data-timestamp)<={self.test_end}]]'
-        tr_available_check = '//table[@class="table table-striped table-bordered"]/tbody'
+            by=By.XPATH, value=find_submit_btn_query).click()  # 검색하기
+        
+        
+        tbody_query = '//table[@class="table table-striped table-bordered"]/tbody'
+        
+        
+        tr_query = f'{tbody_query}/tr[./td[9]/a[number(@data-timestamp)>={self.test_start} and number(@data-timestamp)<={self.test_end}]]'
+
         res = dict()
 
         while True:
             continue_flag = False
-            WebDriverWait(self.__driver, 5).until(
-                EC.presence_of_element_located((By.XPATH, tr_available_check)))
+            WebDriverWait(self.__driver, 5).until(EC.presence_of_element_located((By.XPATH, tbody_query)))
             results = self.__driver.find_elements(By.XPATH, tr_query)
             if len(results) == 0:
                 break
