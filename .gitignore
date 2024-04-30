@@ -2,3 +2,4 @@
 *.png 
 *.jpg
 *.pkl
+.DS_STORE
