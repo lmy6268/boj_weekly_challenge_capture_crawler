@@ -1,0 +1,8 @@
+certifi==2024.2.2
+numpy==1.23.4
+requests==2.31.0
+selenium==4.8.3
+trio==0.22.0
+Pillow==9.3.0
+urllib3==1.26.18
+webdriver-manager==4.0.1

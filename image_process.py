@@ -2,7 +2,7 @@ import numpy as np
 import cv2 as cv
 from PIL import ImageFont, ImageDraw, Image 
 from file_manage import make_dir
-from os.path import dirname,exists
+from os.path import dirname
 
 def make_collage(date:str, user_name:str, data: dict):
     """ 결과 이미지를 합성하고, 출력된 이미지의 경로를 반환하는 메소드"""
@@ -45,6 +45,8 @@ def make_image_file(date:str,image:np.ndarray):
     path = f'./result/{date}.png'
     if(make_dir(dirname(path))):
         cv.imwrite(path,image)
+        with open(path,'rb') as fp:
+            Image.open(fp).show()
         return path 
 
     else:

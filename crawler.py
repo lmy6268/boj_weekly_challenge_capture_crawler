@@ -239,5 +239,7 @@ class Crawler:
         if not conv.isFileAvailable(self.custom_path_config.solved_ac_json_path):
             self.__crawl_solved_ac()
         
-        print(self.__make_result_image())
+        path = self.__make_result_image()
+        
+        print(path)
         self.__destroy()

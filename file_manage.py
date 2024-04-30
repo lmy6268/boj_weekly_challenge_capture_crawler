@@ -1,6 +1,7 @@
 import pickle
 import json
 import os
+import subprocess
 import shutil
 from selenium.webdriver.remote.webelement import WebElement
 
@@ -69,3 +70,10 @@ def remove_dir(path: str):
         return True
     except OSError:
         return False
+
+def open_dir(filename:str):
+    try:
+        os.open(filename,os.O_RDONLY)
+    except OSError:
+       pass
+        
