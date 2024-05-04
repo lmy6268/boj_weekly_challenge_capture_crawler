@@ -4,3 +4,9 @@
 #Not Export Any Sensitive Data
 *.pkl
 result/
+
+
+#DS.Store & pyenv files
+.DS_Store
+.python-version
+__pycache__/

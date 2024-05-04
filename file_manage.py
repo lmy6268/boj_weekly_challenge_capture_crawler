@@ -6,8 +6,8 @@ from selenium.webdriver.remote.webelement import WebElement
 
 
 def save_data2pickle(data, save_path: str):
-     # 해당 경로에 폴더가 없는 경우 폴더 생성
-    if make_dir(os.path.dirname(save_path)):    
+    # 해당 경로에 폴더가 없는 경우 폴더 생성
+    if make_dir(os.path.dirname(save_path)):
         with open(save_path, 'wb') as fp:
             pickle.dump(data, fp)
             return True
@@ -16,13 +16,16 @@ def save_data2pickle(data, save_path: str):
 
 
 def load_pickle2data(path: str):
-    with open(path, "rb") as fp:
-        res = pickle.load(fp)
-        return res
+    try:
+        with open(path, "rb") as fp:
+            res = pickle.load(fp)
+            return res
+    except (OSError, IOError) as e:
+        return None
 
 
 def jsonToDict(file_path: str):
-    with open(file_path,"r") as fp:
+    with open(file_path, "r") as fp:
         jsonfile = json.load(fp)
         return jsonfile
 
@@ -70,9 +73,9 @@ def remove_dir(path: str):
     except OSError:
         return False
 
-def open_dir(filename:str):
+
+def open_dir(filename: str):
     try:
-        os.open(filename,os.O_RDONLY)
+        os.open(filename, os.O_RDONLY)
     except OSError:
        pass
-        
