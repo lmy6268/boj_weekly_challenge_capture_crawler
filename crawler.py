@@ -278,7 +278,7 @@ class Crawler:
         solved_ac = conv.jsonToDict(
             self.custom_path_config.solved_ac_json_path)
         res = {"upsolved": [], "solved_ac": {}}
-        pbar = tqdm(solved_problems.items(), "결과 이미지로 합성하기")
+        pbar = tqdm(solved_problems.items(), "결과 이미지로 합성하기",leave=False)
         for k, v in pbar:
             if k in upsolved_data:
                 res["upsolved"].append(v)  # 이미지 경로 저장
