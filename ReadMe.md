@@ -10,17 +10,16 @@ Selenium, OpenCV, Pillow
 ## 사용 방법 
 1. 프로그램 실행을 위해, 크롬이 설치되어 있어야 합니다.
    - 만약 설치되어 있지 않으시다면, [링크](https://www.google.com/chrome/) 를 통해 설치해 주시고 2번을 진행해주세요. 
-<br>
 
 2. 터미널(또는 CMD)를 실행하시고, main.py가 위치한 폴더로 이동해주세요. 
-<br>
 
-3. 이 프로그램은 Python 3.9버전에 최적화 되어있습니다. 다양한 버전을 사용할 수 있는 파이썬 환경 상, 가상환경을 통해 진행해 주시길 권장합니다. 
+3. 이 프로그램은 Python 3.9버전에 최적화 되어있습니다.
+   <br>
+   다양한 버전을 사용할 수 있는 파이썬 환경 상, 가상환경을 통해 진행해 주시길 권장합니다. 
    <br>
    <details>
       <summary>Windows 사용자</summary>
    
-
    >  [블로그](https://idenrai.tistory.com/277)를 참고하여 작성되었습니다 
    1. PowerShell을 관리자 모드로 실행합니다. 
    2. pyenv를 설치합니다.
@@ -71,7 +70,6 @@ Selenium, OpenCV, Pillow
              deactivate
              ```
    </details>
-   <br>
 
    <details>
    <summary>MAC OS 사용자</summary>
@@ -121,19 +119,19 @@ Selenium, OpenCV, Pillow
          ```
    
    </details>
-   <br>
+
    
-4. 터미널 창에서 `pip install -r requirements.txt` 또는 `pip3 install -r requirements.txt`을 입력하여, 필요한 라이브러리를 설치해주세요. 
+5. 터미널 창에서 `pip install -r requirements.txt` 또는 `pip3 install -r requirements.txt`을 입력하여, 필요한 라이브러리를 설치해주세요. 
 
-5. 설치가 완료된 후,  터미널에서  `python3 "./main.py"` 또는 `python "./main.py"` 을 입력하여, 파일을 실행해주세요. 
+6. 설치가 완료된 후,  터미널에서  `python3 "./main.py"` 또는 `python "./main.py"` 을 입력하여, 파일을 실행해주세요. 
 
 
-6. 사용자의 이름과 백준 아이디를 입력하신 후, 약 5~10초 정도 기다려주세요.
+7. 사용자의 이름과 백준 아이디를 입력하신 후, 약 5~10초 정도 기다려주세요.
    - **프로그램 첫 실행 시, 백준 로그인이 필요합니다. (이후 해당 로그인 정보 세션을 로컬에 저장하여,이를 이용하도록 구성하였습니다.)**
    - 그룹 내 연습 문제 정보를 얻기 위해 로그인을 필요로 하게 되었습니다.
 
 
-7. 이후, 결과 이미지가 화면에 나타나고, 이미지가 저장된 경로가 터미널에 나타납니다.
+8. 이후, 결과 이미지가 화면에 나타나고, 이미지가 저장된 경로가 터미널에 나타납니다.
 
 ## 예시 이미지 
 ![이미지](https://github.com/lmy6268/boj_weekly_challenge_capture_crawler/assets/70847610/f715bfc3-71e1-4300-9b1a-1983daf77fe5)
