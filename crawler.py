@@ -224,23 +224,20 @@ class Crawler:
 
     def __collect_problems(self):
         url = "https://www.acmicpc.net/group/practice/19564"
-        wait_seconds = 10
+        wait_seconds = 20
 
-        last_test_link = '//table[@class = "table table-bordered table-striped"]/tbody/tr[2]/td[1]/a'
+        latest_test_link = '//table[@class = "table table-bordered table-striped"]/tbody/tr[2]/td[1]/a' 
         start_test = '//table[@class = "table table-bordered table-striped"]/tbody/tr[2]/td[2]/span'
         end_test = '//table[@class = "table table-bordered table-striped"]/tbody/tr[2]/td[3]/span'
 
         # 가장 최근에 종료된 테스트로 이동하기
         with tqdm(desc="최근에 종료된 시험에 대한 정보 가져오기", total=100,leave=False) as pbar:
             self.__driver.get(url)
-            WebDriverWait(self.__driver, wait_seconds).until(
-                EC.presence_of_element_located((By.XPATH, last_test_link)))
-            link = self.__driver.find_element(
-                by=By.XPATH, value=last_test_link).get_property("href")
+            WebDriverWait(self.__driver, wait_seconds).until(EC.presence_of_element_located((By.XPATH, latest_test_link)))
+            link = self.__driver.find_element(by=By.XPATH, value=latest_test_link).get_property("href")
 
             # 75분 이후의 기간부터 문제 풀이 값을 검색한다.
-            self.test_start = int(self.__driver.find_element(
-                by=By.XPATH, value=start_test).get_attribute("data-timestamp")) + 4501
+            self.test_start = int(self.__driver.find_element(by=By.XPATH, value=start_test).get_attribute("data-timestamp")) + 4501
             self.test_end = int(self.__driver.find_element(
                 by=By.XPATH, value=end_test).get_attribute("data-timestamp"))
 
@@ -249,12 +246,9 @@ class Crawler:
             # 시험 문제 목록 가져오기
             self.__driver.get(link)
             problem_data_query = '//table[@class="table table-bordered"]/thead/tr/th'
-            WebDriverWait(self.__driver, wait_seconds).until(
-                EC.presence_of_element_located((By.XPATH,  problem_data_query)))
-            problems = self.__driver.find_elements(
-                by=By.XPATH, value=problem_data_query)[2:8]
-            problems = list(map(lambda x: x.find_elements(
-                By.XPATH, "./child::a")[0].get_property("href").split("/")[-1], problems))
+            WebDriverWait(self.__driver, wait_seconds).until(EC.presence_of_element_located((By.XPATH,  problem_data_query))) #해당하는 요소가 등장할 때까지 웹페이지 로딩을 기다림.
+            problems = self.__driver.find_elements(by=By.XPATH, value=problem_data_query)[2:-1] #시험 문제의 수가 변경되는 경우를 인식하기 위해 수정. 
+            problems = list(map(lambda x: x.find_elements(By.XPATH, "./child::a")[0].get_property("href").split("/")[-1], problems))
 
             pbar.update(30)  # 진행률 30퍼 증가
 
