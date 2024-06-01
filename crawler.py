@@ -314,7 +314,8 @@ class Crawler:
         pbar.update(20)  # 진행률 20퍼 증가
 
         res = self.__match_image2cat(
-            upsolved_data=upsolved, solved_problems=solved_problems)  # 분류된 데이터들
+            upsolved_data=upsolved,
+              solved_problems=solved_problems)  # 분류된 데이터들
 
         pbar.update(40)  # 진행률 40퍼 증가
         pbar.close()

@@ -8,5 +8,5 @@ result/
 
 #DS.Store & pyenv files
 .DS_Store
-.python-version
+.python-version 
 __pycache__/
